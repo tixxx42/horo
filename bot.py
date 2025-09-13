@@ -45,7 +45,9 @@ async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("Диалог прерван.")
     return ConversationHandler.END
 
-def main():
+import asyncio
+
+async def main():
     app = Application.builder().token("8350744806:AAGTMP5KG_wdLlO8CF3pham9CKF4YPhnxlk").build()
 
     conv_handler = ConversationHandler(
@@ -62,7 +64,19 @@ def main():
     app.add_handler(conv_handler)
 
     print("Бот запущен...")
-    app.run_polling()
+    await app.run_polling(close_loop=False)
 
 if __name__ == "__main__":
-    main()
+    import asyncio
+    import nest_asyncio
+    nest_asyncio.apply()
+    
+    # Создаем новый event loop
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    
+    try:
+        loop.run_until_complete(main())
+    finally:
+        loop.close()
+
