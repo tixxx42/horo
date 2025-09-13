@@ -70,6 +70,7 @@ if __name__ == "__main__":
     import asyncio
     import nest_asyncio
     nest_asyncio.apply()
+    
     # Создаем новый event loop
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
